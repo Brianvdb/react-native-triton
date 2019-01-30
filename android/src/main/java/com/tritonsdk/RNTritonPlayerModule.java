@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.tritonsdk.impl.PlayerService;
+import com.tritonsdk.impl.Stream;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
@@ -35,6 +36,12 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         if (!mServiceBound) {
             Intent intent = new Intent(reactContext, PlayerService.class);
             intent.setAction(PlayerService.ACTION_INIT);
+            reactContext.bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
+            reactContext.startService(intent);
+
+            intent = new Intent(reactContext, PlayerService.class);
+            intent.setAction(PlayerService.ACTION_PLAY);
+            intent.putExtra(PlayerService.ARG_STREAM, new Stream("SLAM!40", "Happier - Marshmello", "web14", "WEB14_MP3"));
             reactContext.bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
             reactContext.startService(intent);
         }

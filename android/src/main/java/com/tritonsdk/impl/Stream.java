@@ -15,11 +15,11 @@ public class Stream implements Serializable {
 
     }
 
-    public Stream(String title, String description, String tritonName, String tritonMount, OnStreamClickListener listener) {
-        this(title, description, tritonName, tritonMount, listener, false);
+    public Stream(String title, String description, String tritonName, String tritonMount) {
+        this(title, description, tritonName, tritonMount, false);
     }
 
-    public Stream(String title, String description, String tritonName, String tritonMount, OnStreamClickListener listener, boolean active) {
+    public Stream(String title, String description, String tritonName, String tritonMount, boolean active) {
         this.title = title;
         this.description = description;
         this.tritonName = tritonName;
