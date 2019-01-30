@@ -34,7 +34,7 @@ repositories {
     google()
     flatDir {
         dirs 'libs'
-        flatDir { dirs "$rootDir/../node_modules/react-native-triton/android/libs" }
+        flatDir { dirs "$rootDir/../node_modules/react-native-triton-player/android/libs" }
     }
 }
 
