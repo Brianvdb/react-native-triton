@@ -2,7 +2,6 @@
 package com.tritonsdk;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -34,11 +33,10 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initPlayer() {
         if (!mServiceBound) {
-            Context context = getReactApplicationContext();
-            Intent intent = new Intent(context, PlayerService.class);
+            Intent intent = new Intent(reactContext, PlayerService.class);
             intent.setAction(PlayerService.ACTION_INIT);
-            getReactApplicationContext().bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
-            getReactApplicationContext().startService(intent);
+            reactContext.bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
+            reactContext.startService(intent);
         }
     }
 
