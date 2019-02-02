@@ -1,20 +1,31 @@
 
 package com.tritonsdk;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.tritonsdk.impl.PlayerService;
 import com.tritonsdk.impl.Stream;
+import com.tritonsdk.impl.Track;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
 public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
+    private static final String EVENT_TRACK_CHANGED = "trackChanged";
+    private static final String EVENT_STATE_CHANGED = "stateChanged";
+    private static final String EVENT_STREAM_CHANGED = "streamChanged";
 
     private final ReactApplicationContext reactContext;
 
@@ -24,6 +35,7 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
     public RNTritonPlayerModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
+        registerReceiver();
     }
 
     @Override
@@ -55,11 +67,35 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         reactContext.startService(intent);
     }
 
-    @ReactMethod
-    public void hello() {
-
+    private void sendEvent(String eventName,
+                           @Nullable WritableMap params) {
+        reactContext
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
     }
 
+    private void onStreamChanged(Stream stream) {
+        WritableMap map = Arguments.createMap();
+        map.putString("stream", stream.getTritonMount());
+
+        sendEvent(EVENT_STREAM_CHANGED, map);
+    }
+
+    private void onStateChanged(int state) {
+        WritableMap map = Arguments.createMap();
+        map.putInt("state", state);
+
+        sendEvent(EVENT_STATE_CHANGED, map);
+    }
+
+    private void onTrackChanged(Track track) {
+        WritableMap map = Arguments.createMap();
+        map.putString("artist", track.getArtist());
+        map.putString("title", track.getTitle());
+        map.putBoolean("isAd", track.isAds());
+
+        sendEvent(EVENT_TRACK_CHANGED, map);
+    }
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -68,13 +104,13 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
             mService = ((PlayerService.LocalBinder) binder).getService();
 
             if (mService.getCurrentStream() != null) {
-                //onStreamChanged(mService.getCurrentStream());
+                onStreamChanged(mService.getCurrentStream());
             }
             if (mService.getCurrentTrack() != null) {
-                //onTrackChanged(mService.getCurrentTrack());
+                onTrackChanged(mService.getCurrentTrack());
             }
 
-            //onStateChanged(mService.getState());
+            onStateChanged(mService.getState());
         }
 
         @Override
@@ -82,4 +118,34 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
             mServiceBound = false;
         }
     };
+
+    private void registerReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(PlayerService.EVENT_TRACK_CHANGED);
+        filter.addAction(PlayerService.EVENT_STREAM_CHANGED);
+        filter.addAction(PlayerService.EVENT_STATE_CHANGED);
+        reactContext.registerReceiver(mReceiver, filter);
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent == null || intent.getAction() == null) return;
+
+            switch (intent.getAction()) {
+                case PlayerService.EVENT_TRACK_CHANGED:
+                    Track track = (Track) intent.getSerializableExtra(PlayerService.ARG_TRACK);
+                    onTrackChanged(track);
+                    break;
+                case PlayerService.EVENT_STREAM_CHANGED:
+                    Stream stream = (Stream) intent.getSerializableExtra(PlayerService.ARG_STREAM);
+                    onStreamChanged(stream);
+                    break;
+                case PlayerService.EVENT_STATE_CHANGED:
+                    int state = intent.getIntExtra(PlayerService.ARG_STATE, -1);
+                    onStateChanged(state);
+            }
+        }
+    };
+
 }
