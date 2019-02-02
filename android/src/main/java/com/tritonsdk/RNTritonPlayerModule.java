@@ -90,9 +90,9 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
 
     private void onTrackChanged(Track track) {
         WritableMap map = Arguments.createMap();
-        map.putString("artist", track.getArtist());
-        map.putString("title", track.getTitle());
-        map.putBoolean("isAd", track.isAds());
+        map.putString("artist", track != null ? track.getArtist() : "-");
+        map.putString("title", track != null ? track.getTitle() : "-");
+        map.putBoolean("isAd", track != null && track.isAds());
 
         sendEvent(EVENT_TRACK_CHANGED, map);
     }
