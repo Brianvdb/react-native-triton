@@ -31,21 +31,30 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         return "RNTritonPlayer";
     }
 
-    @ReactMethod
-    public void initPlayer() {
+    private void initPlayer() {
         if (!mServiceBound) {
             Intent intent = new Intent(reactContext, PlayerService.class);
             intent.setAction(PlayerService.ACTION_INIT);
             reactContext.bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
             reactContext.startService(intent);
-
-            intent = new Intent(reactContext, PlayerService.class);
-            intent.setAction(PlayerService.ACTION_PLAY);
-            intent.putExtra(PlayerService.ARG_STREAM, new Stream("SLAM!40", "Happier - Marshmello", "web14", "WEB14_MP3"));
-            reactContext.bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
-            reactContext.startService(intent);
         }
     }
+
+    @ReactMethod
+    public void play(String tritonName, String tritonMount) {
+        initPlayer();
+
+        if (mService != null) {
+            mService.stop();
+        }
+
+        Intent intent = new Intent(reactContext, PlayerService.class);
+        intent.setAction(PlayerService.ACTION_PLAY);
+        intent.putExtra(PlayerService.ARG_STREAM, new Stream("", "", tritonName, tritonMount));
+        reactContext.bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
+        reactContext.startService(intent);
+    }
+
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
