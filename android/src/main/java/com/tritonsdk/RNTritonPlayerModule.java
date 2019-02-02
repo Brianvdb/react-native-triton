@@ -55,6 +55,11 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         reactContext.startService(intent);
     }
 
+    @ReactMethod
+    public void hello() {
+
+    }
+
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
