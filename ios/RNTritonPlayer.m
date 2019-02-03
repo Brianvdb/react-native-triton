@@ -9,5 +9,10 @@
 }
 RCT_EXPORT_MODULE()
 
+RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonStation)
+{
+    
+}
+
 @end
   
