@@ -14,7 +14,7 @@
 		D354122222065F7E007B20F2 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354122122065F7E007B20F2 /* MediaPlayer.framework */; };
 		D354122422065F86007B20F2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354122322065F86007B20F2 /* CoreMedia.framework */; };
 		D354125C220663EA007B20F2 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D354123D2206638C007B20F2 /* libReact.a */; };
-		D35412DC22067589007B20F2 /* TritonPlayerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35412DB22067589007B20F2 /* TritonPlayerSDK.framework */; };
+		D354136A22068597007B20F2 /* TritonPlayerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354136922068597007B20F2 /* TritonPlayerSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,7 +155,7 @@
 		D354122322065F86007B20F2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		D354122522066155007B20F2 /* TritonPlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TritonPlayerSDK.framework; path = "../../../Downloads/triton-ios-sdk-2.5.1.138/TritonPlayerSDK.framework"; sourceTree = "<group>"; };
 		D35412292206638B007B20F2 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		D35412DB22067589007B20F2 /* TritonPlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TritonPlayerSDK.framework; path = "../../../Downloads/triton-ios-sdk-2.5.1.138/TritonPlayerSDK.framework"; sourceTree = "<group>"; };
+		D354136922068597007B20F2 /* TritonPlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TritonPlayerSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +169,7 @@
 				D354122022065F73007B20F2 /* AVFoundation.framework in Frameworks */,
 				D354121E22065F6B007B20F2 /* AdSupport.framework in Frameworks */,
 				D354121C22065F62007B20F2 /* SystemConfiguration.framework in Frameworks */,
-				D35412DC22067589007B20F2 /* TritonPlayerSDK.framework in Frameworks */,
+				D354136A22068597007B20F2 /* TritonPlayerSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +187,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				D35412DB22067589007B20F2 /* TritonPlayerSDK.framework */,
+				D354136922068597007B20F2 /* TritonPlayerSDK.framework */,
 				B3E7B5881CC2AC0600A0062D /* RNTritonPlayer.h */,
 				B3E7B5891CC2AC0600A0062D /* RNTritonPlayer.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -516,7 +516,7 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -535,7 +535,10 @@
 					"$(SRCROOT)/TritonPlayerSDK.framework/Headers/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-loadall",
+				);
 				PRODUCT_NAME = RNTritonPlayer;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
@@ -545,7 +548,7 @@
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -560,7 +563,10 @@
 					"$(SRCROOT)/TritonPlayerSDK.framework/Headers/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-loadall",
+				);
 				PRODUCT_NAME = RNTritonPlayer;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
