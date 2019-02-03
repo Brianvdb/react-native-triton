@@ -520,6 +520,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/TritonPlayerSDK.framework/**",
+					"$(SRCROOT)/**",
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
@@ -546,6 +547,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/TritonPlayerSDK.framework/**",
+					"$(SRCROOT}/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
