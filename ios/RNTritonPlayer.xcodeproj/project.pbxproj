@@ -14,8 +14,7 @@
 		D354122222065F7E007B20F2 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354122122065F7E007B20F2 /* MediaPlayer.framework */; };
 		D354122422065F86007B20F2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354122322065F86007B20F2 /* CoreMedia.framework */; };
 		D354125C220663EA007B20F2 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D354123D2206638C007B20F2 /* libReact.a */; };
-		D354136A22068597007B20F2 /* TritonPlayerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354136922068597007B20F2 /* TritonPlayerSDK.framework */; };
-		D354136B22068721007B20F2 /* TritonPlayerSDK.framework in Sources */ = {isa = PBXBuildFile; fileRef = D354136922068597007B20F2 /* TritonPlayerSDK.framework */; };
+		D354137E2207656C007B20F2 /* TritonPlayerSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D354137D2207656B007B20F2 /* TritonPlayerSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,7 +155,23 @@
 		D354122322065F86007B20F2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		D354122522066155007B20F2 /* TritonPlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TritonPlayerSDK.framework; path = "../../../Downloads/triton-ios-sdk-2.5.1.138/TritonPlayerSDK.framework"; sourceTree = "<group>"; };
 		D35412292206638B007B20F2 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		D354136922068597007B20F2 /* TritonPlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TritonPlayerSDK.framework; sourceTree = "<group>"; };
+		D354136D22076559007B20F2 /* TDAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAnalyticsTracker.h; sourceTree = "<group>"; };
+		D354136E22076559007B20F2 /* TDAdLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAdLoader.h; sourceTree = "<group>"; };
+		D354136F22076559007B20F2 /* TritonPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TritonPlayer.h; sourceTree = "<group>"; };
+		D354137022076559007B20F2 /* TDInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDInterstitialAd.h; sourceTree = "<group>"; };
+		D354137122076559007B20F2 /* TDInterstitialAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDInterstitialAdDelegate.h; sourceTree = "<group>"; };
+		D354137222076559007B20F2 /* TDCompanionBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCompanionBanner.h; sourceTree = "<group>"; };
+		D354137322076559007B20F2 /* TDSBMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSBMPlayer.h; sourceTree = "<group>"; };
+		D354137422076559007B20F2 /* TDSyncBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSyncBannerView.h; sourceTree = "<group>"; };
+		D354137522076559007B20F2 /* TDBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBannerView.h; sourceTree = "<group>"; };
+		D354137622076559007B20F2 /* CuePointEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CuePointEvent.h; sourceTree = "<group>"; };
+		D35413772207655A007B20F2 /* TDBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBannerViewDelegate.h; sourceTree = "<group>"; };
+		D35413782207655A007B20F2 /* TDAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAd.h; sourceTree = "<group>"; };
+		D35413792207655A007B20F2 /* TritonPlayerSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TritonPlayerSDK.h; sourceTree = "<group>"; };
+		D354137A2207655A007B20F2 /* TDAdRequestURLBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAdRequestURLBuilder.h; sourceTree = "<group>"; };
+		D354137B2207655A007B20F2 /* TDAuthUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAuthUtils.h; sourceTree = "<group>"; };
+		D354137C2207655A007B20F2 /* TDCuePointHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCuePointHistory.h; sourceTree = "<group>"; };
+		D354137D2207656B007B20F2 /* TritonPlayerSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TritonPlayerSDK.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,10 +182,10 @@
 				D354125C220663EA007B20F2 /* libReact.a in Frameworks */,
 				D354122422065F86007B20F2 /* CoreMedia.framework in Frameworks */,
 				D354122222065F7E007B20F2 /* MediaPlayer.framework in Frameworks */,
+				D354137E2207656C007B20F2 /* TritonPlayerSDK.a in Frameworks */,
 				D354122022065F73007B20F2 /* AVFoundation.framework in Frameworks */,
 				D354121E22065F6B007B20F2 /* AdSupport.framework in Frameworks */,
 				D354121C22065F62007B20F2 /* SystemConfiguration.framework in Frameworks */,
-				D354136A22068597007B20F2 /* TritonPlayerSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +203,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				D354136922068597007B20F2 /* TritonPlayerSDK.framework */,
+				D354136C22076538007B20F2 /* TritonPlayerSDK */,
 				B3E7B5881CC2AC0600A0062D /* RNTritonPlayer.h */,
 				B3E7B5891CC2AC0600A0062D /* RNTritonPlayer.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -231,6 +246,30 @@
 				D354125B2206638C007B20F2 /* libprivatedata-tvOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D354136C22076538007B20F2 /* TritonPlayerSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D354137D2207656B007B20F2 /* TritonPlayerSDK.a */,
+				D354137622076559007B20F2 /* CuePointEvent.h */,
+				D35413782207655A007B20F2 /* TDAd.h */,
+				D354136E22076559007B20F2 /* TDAdLoader.h */,
+				D354137A2207655A007B20F2 /* TDAdRequestURLBuilder.h */,
+				D354136D22076559007B20F2 /* TDAnalyticsTracker.h */,
+				D354137B2207655A007B20F2 /* TDAuthUtils.h */,
+				D354137522076559007B20F2 /* TDBannerView.h */,
+				D35413772207655A007B20F2 /* TDBannerViewDelegate.h */,
+				D354137222076559007B20F2 /* TDCompanionBanner.h */,
+				D354137C2207655A007B20F2 /* TDCuePointHistory.h */,
+				D354137022076559007B20F2 /* TDInterstitialAd.h */,
+				D354137122076559007B20F2 /* TDInterstitialAdDelegate.h */,
+				D354137322076559007B20F2 /* TDSBMPlayer.h */,
+				D354137422076559007B20F2 /* TDSyncBannerView.h */,
+				D354136F22076559007B20F2 /* TritonPlayer.h */,
+				D35413792207655A007B20F2 /* TritonPlayerSDK.h */,
+			);
+			path = TritonPlayerSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,7 +449,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D354136B22068721007B20F2 /* TritonPlayerSDK.framework in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNTritonPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -536,7 +574,11 @@
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(SRCROOT)/TritonPlayerSDK.framework/Headers/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TritonPlayerSDK",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-loadall",
@@ -564,7 +606,10 @@
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(SRCROOT)/TritonPlayerSDK.framework/Headers/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TritonPlayerSDK",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-loadall",
