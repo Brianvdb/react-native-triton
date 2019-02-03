@@ -5,8 +5,8 @@ const NativeRNTritonPlayer = NativeModules.RNTritonPlayer;
 
 class RNTritonPlayer {
 
-    static play(stream) {
-        NativeRNTritonPlayer.play(stream);
+    static play(tritonName, tritonMount) {
+        NativeRNTritonPlayer.play(tritonName, tritonMount);
     }
 
     static addStreamChangeListener(callback) {
