@@ -520,11 +520,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/TritonPlayerSDK.framework/**",
-					"$(SRCROOT)/**",
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(SRCROOT)/TritonPlayerSDK.framework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -547,7 +547,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/TritonPlayerSDK.framework/**",
-					"$(SRCROOT}/**",
+					"$(SRCROOT)/../node_modules/react-native-triton-player/ios/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
