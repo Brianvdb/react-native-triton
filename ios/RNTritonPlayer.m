@@ -55,6 +55,28 @@ RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonSt
     [self sendEventWithName:EventStreamChanged body:@{@"stream": tritonStation}];
 }
 
+RCT_EXPORT_METHOD(stop)
+{
+    if (self.tritonPlayer != NULL) {
+        [self.tritonPlayer stop];
+    }
+}
+
+RCT_EXPORT_METHOD(pause)
+{
+    if (self.tritonPlayer != NULL && self.tritonPlayer.state == kTDPlayerStatePlaying) {
+        [self.tritonPlayer pause];
+    }
+}
+
+RCT_EXPORT_METHOD(unPause)
+{
+    if (self.tritonPlayer != NULL) {
+        [self.tritonPlayer play];
+    }
+}
+
+
 - (void)player:(TritonPlayer *)player didChangeState:(TDPlayerState)state {
     NSInteger eventState;
     

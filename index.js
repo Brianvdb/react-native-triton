@@ -9,6 +9,18 @@ class RNTritonPlayer {
         NativeRNTritonPlayer.play(tritonName, tritonMount);
     }
 
+    static pause() {
+        NativeRNTritonPlayer.pause();
+    }
+
+    static unPause() {
+        NativeRNTritonPlayer.unPause();
+    }
+
+    static stop() {
+        NativeRNTritonPlayer.stop();
+    }
+
     static addStreamChangeListener(callback) {
         if (Platform.OS === 'ios') {
             const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
@@ -24,6 +36,15 @@ class RNTritonPlayer {
             tritonEmitter.addListener('trackChanged', callback);
         } else {
             DeviceEventEmitter.addListener('trackChanged', callback);
+        }
+    }
+
+    static addStateChangeListener(callback) {
+        if (Platform.OS === 'ios') {
+            const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
+            tritonEmitter.addListener('stateChanged', callback);
+        } else {
+            DeviceEventEmitter.addListener('stateChanged', callback);
         }
     }
 }
