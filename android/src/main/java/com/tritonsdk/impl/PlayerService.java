@@ -148,9 +148,14 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         mPlayer = null;
     }
 
-    private void pause() {
+    public void pause() {
         if (!isPlaying()) return;
         mPlayer.pause();
+    }
+
+    public void unPause() {
+        if (isPlaying()) return;
+        mPlayer.play();
     }
 
     public Stream getCurrentStream() {

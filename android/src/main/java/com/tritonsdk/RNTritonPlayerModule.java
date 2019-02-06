@@ -67,6 +67,27 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         reactContext.startService(intent);
     }
 
+    @ReactMethod
+    public void pause() {
+        if (mService != null) {
+            mService.pause();
+        }
+    }
+
+    @ReactMethod
+    public void unPause() {
+        if (mService != null) {
+            mService.unPause();
+        }
+    }
+
+    @ReactMethod
+    public void stop() {
+        if (mService != null) {
+            mService.stop();
+        }
+    }
+
     private void sendEvent(String eventName,
                            @Nullable WritableMap params) {
         reactContext
