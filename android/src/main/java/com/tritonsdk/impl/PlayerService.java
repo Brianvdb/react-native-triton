@@ -296,6 +296,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, playPendingIntent);
                 mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_play);
             }
+            mRemoteViews.setImageViewResource(R.id.station_exit_image, R.drawable.ic_close_white);
             mRemoteViews.setOnClickPendingIntent(R.id.station_exit, pendingQuitIntent);
 
             mNotificationManager.notify(NOTIFICATION_SERVICE, mBuilder.build());

@@ -82,6 +82,7 @@
         android:background="@drawable/play_circle">
 
         <ImageView
+            android:id="@+id/station_exit_image"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_centerInParent="true"
