@@ -291,10 +291,10 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             // use right actions depending on playstate
             if (isPlaying()) {
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, pausePendingIntent);
-                //mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_pause);
+                mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_pause);
             } else {
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, playPendingIntent);
-                //mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_play);
+                mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_play);
             }
             mRemoteViews.setOnClickPendingIntent(R.id.station_exit, pendingQuitIntent);
 
