@@ -45,6 +45,9 @@ RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonSt
         [self.tritonPlayer stop];
     }
     
+    // Setup stuff
+    [self configureRemoteCommandHandling];
+    
     // Update Triton Player settings
     [self.tritonPlayer updateSettings:settings];
     
@@ -107,6 +110,7 @@ RCT_EXPORT_METHOD(unPause)
 }
 
 - (void)player:(TritonPlayer *)player didReceiveCuePointEvent:(CuePointEvent *)cuePointEvent {
+     [self configureNowPlayingInfo];
     if ([cuePointEvent.type isEqualToString:EventTypeAd]) {
         // Type CUE ad
         [self sendEventWithName:EventTrackChanged body:@{@"artist": @"-", @"title": @"-", @"isAd": @TRUE}];
@@ -119,6 +123,36 @@ RCT_EXPORT_METHOD(unPause)
         [self sendEventWithName:EventTrackChanged body:@{@"artist": artistName, @"title": songTitle, @"isAd": @FALSE}];
         
     }
+}
+
+- (void)configureRemoteCommandHandling
+{
+    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+    
+    // register to receive remote play event
+    [commandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        //[_tritonPlayer play];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+    
+    // register to receive remote pause event
+    [commandCenter.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        //[_tritonPlayer stop];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+}
+
+- (void)configureNowPlayingInfo
+{
+    MPNowPlayingInfoCenter* info = [MPNowPlayingInfoCenter defaultCenter];
+    NSMutableDictionary* newInfo = [NSMutableDictionary dictionary];
+    
+    // Set song title info
+    [newInfo setObject:@"Mooi" forKey:MPMediaItemPropertyTitle];
+    [newInfo setObject:@"Ketchup Song" forKey:MPMediaItemPropertyArtist];
+
+    // Update the now playing info
+    info.nowPlayingInfo = newInfo;
 }
 
 @end
