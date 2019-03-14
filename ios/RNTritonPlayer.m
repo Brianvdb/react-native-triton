@@ -18,7 +18,7 @@ const NSInteger STATE_PAUSED = 206;
 - (dispatch_queue_t)methodQueue
 {
     return dispatch_get_main_queue();
- }
+}
 RCT_EXPORT_MODULE()
 
 - (NSArray<NSString *> *)supportedEvents
@@ -31,6 +31,9 @@ RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonSt
     // Init Triton Player if its not set yet
     if (self.tritonPlayer == NULL) {
         self.tritonPlayer = [[TritonPlayer alloc] initWithDelegate:self andSettings:nil];
+        self.track = @"-";
+        self.title = @"-";
+        self.state = 0;
     }
     
     // Set Station Details
@@ -105,15 +108,20 @@ RCT_EXPORT_METHOD(unPause)
             break;
     }
     
+    self.state = eventState;
+    
     // Notify state change
     [self sendEventWithName:EventStateChanged body:@{@"state": @(eventState)}];
+    [self configureNowPlayingInfo];
 }
 
 - (void)player:(TritonPlayer *)player didReceiveCuePointEvent:(CuePointEvent *)cuePointEvent {
-     [self configureNowPlayingInfo];
+    [self configureNowPlayingInfo];
     if ([cuePointEvent.type isEqualToString:EventTypeAd]) {
         // Type CUE ad
         [self sendEventWithName:EventTrackChanged body:@{@"artist": @"-", @"title": @"-", @"isAd": @TRUE}];
+        self.track = @"-";
+        self.title = @"-";
     } else if ([cuePointEvent.type isEqualToString:EventTypeTrack]) {
         // Type CUE track
         
@@ -122,6 +130,8 @@ RCT_EXPORT_METHOD(unPause)
         
         [self sendEventWithName:EventTrackChanged body:@{@"artist": artistName, @"title": songTitle, @"isAd": @FALSE}];
         
+        self.track = artistName;
+        self.title = songTitle;
     }
 }
 
@@ -129,31 +139,47 @@ RCT_EXPORT_METHOD(unPause)
 {
     MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
     
+    [commandCenter.playCommand setEnabled:true];
     // register to receive remote play event
     [commandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        //[_tritonPlayer play];
+        [self.tritonPlayer play];
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     
+    [commandCenter.pauseCommand setEnabled:true];
     // register to receive remote pause event
     [commandCenter.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        //[_tritonPlayer stop];
+        [self.tritonPlayer pause];
         return MPRemoteCommandHandlerStatusSuccess;
     }];
 }
 
 - (void)configureNowPlayingInfo
 {
+    
     MPNowPlayingInfoCenter* info = [MPNowPlayingInfoCenter defaultCenter];
     NSMutableDictionary* newInfo = [NSMutableDictionary dictionary];
     
     // Set song title info
-    [newInfo setObject:@"Mooi" forKey:MPMediaItemPropertyTitle];
-    [newInfo setObject:@"Ketchup Song" forKey:MPMediaItemPropertyArtist];
-
+    [newInfo setObject:self.title forKey:MPMediaItemPropertyTitle];
+    [newInfo setObject:self.track forKey:MPMediaItemPropertyArtist];
+    
+    [newInfo setValue:[NSNumber numberWithDouble:1] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+    
+    
+    if (self.state == STATE_PAUSED) {
+        info.playbackState = MPMusicPlaybackStatePaused;
+         [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+    } else if (self.state == STATE_PLAYING) {
+        info.playbackState = MPMusicPlaybackStatePlaying;
+         [newInfo setValue:[NSNumber numberWithDouble:1] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+    } else if (self.state == STATE_STOPPED) {
+        info.playbackState = MPMusicPlaybackStateStopped;
+         [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+    }
     // Update the now playing info
     info.nowPlayingInfo = newInfo;
 }
 
 @end
-  
+

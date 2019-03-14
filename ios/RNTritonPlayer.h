@@ -34,7 +34,9 @@ extern const NSInteger STATE_PAUSED;
 @interface RNTritonPlayer : RCTEventEmitter <RCTBridgeModule, TritonPlayerDelegate>
 
     @property (strong, nonatomic) TritonPlayer *tritonPlayer;
-
+    @property (strong, nonatomic) NSString *track;
+    @property (strong, nonatomic) NSString *title;
+    @property (nonatomic) NSInteger state;
 
 @end
   
