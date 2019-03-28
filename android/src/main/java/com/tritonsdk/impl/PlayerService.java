@@ -193,7 +193,9 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                     mRemoteViews.setTextViewText(R.id.song_title, mCurrentTrack.getTitle());
                     mRemoteViews.setTextViewText(R.id.station_artist, mCurrentTrack.getArtist());
 
-                    mNotificationManager.notify(NOTIFICATION_SERVICE, mBuilder.build());
+                    if (mNotificationManager != null && mBuilder != null) {
+                        mNotificationManager.notify(NOTIFICATION_SERVICE, mBuilder.build());
+                    }
 
                     notifyTrackUpdate();
                 }
@@ -203,7 +205,9 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 mRemoteViews.setTextViewText(R.id.song_title, "Reclame");
                 mRemoteViews.setTextViewText(R.id.station_artist, "Reclame");
 
-                mNotificationManager.notify(NOTIFICATION_SERVICE, mBuilder.build());
+                if (mNotificationManager != null && mBuilder != null) {
+                    mNotificationManager.notify(NOTIFICATION_SERVICE, mBuilder.build());
+                }
 
                 notifyTrackUpdate();
                 break;
