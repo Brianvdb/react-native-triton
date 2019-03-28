@@ -4,8 +4,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Binder;
 import android.os.Build;
@@ -14,7 +16,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.tritondigital.player.MediaPlayer;
@@ -53,12 +54,16 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     private RemoteViews mRemoteViews;
     private NotificationManager mNotificationManager;
 
+    private MusicIntentReceiver mReceiver = new MusicIntentReceiver();
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null && intent.getAction() != null) {
             switch (intent.getAction()) {
                 case ACTION_INIT:
+                    IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+                    registerReceiver(mReceiver, filter);
                     // nothing
                     break;
                 case ACTION_PLAY:
@@ -72,7 +77,6 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                     play();
                     break;
                 case ACTION_QUIT:
-                    Log.e("PlayerService", "quit");
                     //releasePlayer();
                     stop();
                     mBuilder = null;
@@ -95,6 +99,12 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         if (mPlayer != null) {
             mPlayer.release();
             mPlayer = null;
+        }
+
+        try {
+            unregisterReceiver(mReceiver);
+        } catch (IllegalArgumentException ignored) {
+
         }
     }
 
@@ -253,8 +263,6 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     }
 
     public void showNotification() {
-        Log.e("PlayerService", "show notification");
-
         if (isShowingNotification()) {
             return;
         }
@@ -318,5 +326,26 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     public boolean isShowingNotification() {
         return mBuilder != null;
     }
+
+    private class MusicIntentReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction() != null && intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
+                int state = intent.getIntExtra("state", -1);
+                switch (state) {
+                    case 0:
+                        // headset unplugged, pause if playing...
+                        pause();
+                        break;
+                    case 1:
+                        // headset is plugged, do absolutely nothing!
+                        break;
+                    default:
+                        // no ides
+                }
+            }
+        }
+    }
+
 }
 
