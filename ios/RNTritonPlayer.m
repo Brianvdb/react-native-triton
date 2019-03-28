@@ -135,6 +135,23 @@ RCT_EXPORT_METHOD(unPause)
     }
 }
 
+- (void)playerBeginInterruption:(TritonPlayer *) player {
+    if (self.tritonPlayer != NULL && [self.tritonPlayer isExecuting]) {
+        [self.tritonPlayer stop];
+        self.interruptedOnPlayback = YES;
+    }
+}
+
+- (void)playerEndInterruption:(TritonPlayer *) player {
+    if (self.tritonPlayer != NULL && self.interruptedOnPlayback) {
+        
+        // Resume stream
+        [self.tritonPlayer play];
+        
+        self.interruptedOnPlayback = NO;
+    }
+}
+
 - (void)configureRemoteCommandHandling
 {
     MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];

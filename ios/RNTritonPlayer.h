@@ -37,6 +37,7 @@ extern const NSInteger STATE_PAUSED;
     @property (strong, nonatomic) NSString *track;
     @property (strong, nonatomic) NSString *title;
     @property (nonatomic) NSInteger state;
+    @property (nonatomic) BOOL interruptedOnPlayback;
 
 @end
   
