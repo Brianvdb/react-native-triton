@@ -130,6 +130,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         showNotification();
     }
 
+
     public void stop() {
         if (!isPlaying() || mPlayer == null) return;
         mPlayer.stop();
@@ -160,6 +161,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     public void unPause() {
         if (isPlaying()) return;
         mPlayer.play();
+        showNotification();
     }
 
     public Stream getCurrentStream() {
