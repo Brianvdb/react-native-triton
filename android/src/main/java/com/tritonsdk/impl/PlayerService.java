@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.tritondigital.player.MediaPlayer;
@@ -71,8 +72,10 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                     play();
                     break;
                 case ACTION_QUIT:
+                    Log.e("PlayerService", "quit");
                     //releasePlayer();
                     stop();
+                    mBuilder = null;
                     stopForeground(true);
                     //stopSelf();
                     break;
@@ -244,6 +247,8 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     }
 
     public void showNotification() {
+        Log.e("PlayerService", "show notification");
+
         if (isShowingNotification()) {
             return;
         }
