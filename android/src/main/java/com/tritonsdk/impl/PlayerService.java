@@ -71,9 +71,10 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                     play();
                     break;
                 case ACTION_QUIT:
-                    releasePlayer();
+                    //releasePlayer();
+                    stop();
                     stopForeground(true);
-                    stopSelf();
+                    //stopSelf();
                     break;
                 case ACTION_STOP:
                     stop();
