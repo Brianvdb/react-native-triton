@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tritonsdk">
 
-    <uses-permission android:name="android.permission.GET_TASKS" />
+
     <application>
         <service android:name=".impl.PlayerService" />
     </application>
