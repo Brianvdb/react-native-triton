@@ -295,6 +295,14 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     private void updateNotification() {
         if (isShowingNotification()) {
 
+            final Intent intent = getPackageManager()
+                    .getLaunchIntentForPackage(getPackageName());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
             Intent stopIntent = new Intent(this, PlayerService.class);
             stopIntent.setAction(ACTION_STOP);
             PendingIntent pausePendingIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -307,6 +315,8 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             //playIntent.putExtra(ARG_STATION, mCurrentStation);
             playIntent.setAction(ACTION_PLAY);
             PendingIntent playPendingIntent = PendingIntent.getService(this, 0, playIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            mRemoteViews.setOnClickPendingIntent(R.id.notification_clickable_content, contentIntent);
 
             // use right actions depending on playstate
             if (isPlaying()) {
