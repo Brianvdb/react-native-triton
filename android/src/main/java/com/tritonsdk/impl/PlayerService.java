@@ -1,5 +1,6 @@
 package com.tritonsdk.impl;
 
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -21,6 +22,8 @@ import android.widget.RemoteViews;
 import com.tritondigital.player.MediaPlayer;
 import com.tritondigital.player.TritonPlayer;
 import com.tritonsdk.R;
+
+import java.util.List;
 
 
 public class PlayerService extends Service implements TritonPlayer.OnCuePointReceivedListener, TritonPlayer.OnStateChangedListener, TritonPlayer.OnMetaDataReceivedListener {
@@ -294,15 +297,6 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
     private void updateNotification() {
         if (isShowingNotification()) {
-
-            final Intent intent = getPackageManager()
-                    .getLaunchIntentForPackage(getPackageName());
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setAction(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-
-            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
             Intent stopIntent = new Intent(this, PlayerService.class);
             stopIntent.setAction(ACTION_STOP);
             PendingIntent pausePendingIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -316,7 +310,26 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             playIntent.setAction(ACTION_PLAY);
             PendingIntent playPendingIntent = PendingIntent.getService(this, 0, playIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            mRemoteViews.setOnClickPendingIntent(R.id.notification_clickable_content, contentIntent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityManager activityManager = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+                if (activityManager != null) {
+                    Intent target = null;
+                    List<ActivityManager.AppTask> taskList = activityManager.getAppTasks();
+                    for (ActivityManager.AppTask appTask : taskList) {
+                        ActivityManager.RecentTaskInfo taskInfo = appTask.getTaskInfo();
+                        if (taskInfo.baseIntent.getComponent() != null && taskInfo.baseIntent.getComponent().getPackageName().equals(getPackageName())) {
+                            target = taskInfo.baseIntent;
+                            target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            break;
+                        }
+                    }
+
+                    if (target != null) {
+                        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, target, PendingIntent.FLAG_UPDATE_CURRENT);
+                        mRemoteViews.setOnClickPendingIntent(R.id.notification_clickable_content, contentIntent);
+                    }
+                }
+            }
 
             // use right actions depending on playstate
             if (isPlaying()) {
