@@ -44,9 +44,9 @@ RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonSt
                                };
     
     // Stop Current Stream (if playing)
-    if (self.tritonPlayer.state == kTDPlayerStatePlaying) {
-        [self.tritonPlayer stop];
-    }
+    //if ([self.tritonPlayer isExecuting]) {
+    [self.tritonPlayer stop];
+    //}
     
     // Setup stuff
     [self configureRemoteCommandHandling];
@@ -89,7 +89,7 @@ RCT_EXPORT_METHOD(unPause)
     // Map to Android value..
     switch(state) {
         case kTDPlayerStateStopped:
-            eventState = STATE_STOPPED;
+            eventState = STATE_RELEASED;
             break;
         case kTDPlayerStatePlaying:
             eventState = STATE_PLAYING;
@@ -138,16 +138,14 @@ RCT_EXPORT_METHOD(unPause)
 - (void)playerBeginInterruption:(TritonPlayer *) player {
     if (self.tritonPlayer != NULL && [self.tritonPlayer isExecuting]) {
         [self.tritonPlayer stop];
+        [self sendEventWithName:EventStateChanged body:@{@"state": @(STATE_RELEASED)}];
+        self.tritonPlayer = NULL;
         self.interruptedOnPlayback = YES;
     }
 }
 
 - (void)playerEndInterruption:(TritonPlayer *) player {
     if (self.tritonPlayer != NULL && self.interruptedOnPlayback) {
-        
-        // Resume stream
-        [self.tritonPlayer play];
-        
         self.interruptedOnPlayback = NO;
     }
 }
@@ -186,13 +184,13 @@ RCT_EXPORT_METHOD(unPause)
     
     if (self.state == STATE_PAUSED) {
         info.playbackState = MPMusicPlaybackStatePaused;
-         [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+        [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
     } else if (self.state == STATE_PLAYING) {
         info.playbackState = MPMusicPlaybackStatePlaying;
-         [newInfo setValue:[NSNumber numberWithDouble:1] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+        [newInfo setValue:[NSNumber numberWithDouble:1] forKey:MPNowPlayingInfoPropertyPlaybackRate];
     } else if (self.state == STATE_STOPPED) {
         info.playbackState = MPMusicPlaybackStateStopped;
-         [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+        [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
     }
     // Update the now playing info
     info.nowPlayingInfo = newInfo;
