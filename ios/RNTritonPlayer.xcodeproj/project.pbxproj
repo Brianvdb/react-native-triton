@@ -13,7 +13,6 @@
 		D354122022065F73007B20F2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354121F22065F73007B20F2 /* AVFoundation.framework */; };
 		D354122222065F7E007B20F2 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354122122065F7E007B20F2 /* MediaPlayer.framework */; };
 		D354122422065F86007B20F2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D354122322065F86007B20F2 /* CoreMedia.framework */; };
-		D354125C220663EA007B20F2 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D354123D2206638C007B20F2 /* libReact.a */; };
 		D354137E2207656C007B20F2 /* TritonPlayerSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D354137D2207656B007B20F2 /* TritonPlayerSDK.a */; };
 /* End PBXBuildFile section */
 
@@ -179,7 +178,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D354125C220663EA007B20F2 /* libReact.a in Frameworks */,
 				D354122422065F86007B20F2 /* CoreMedia.framework in Frameworks */,
 				D354122222065F7E007B20F2 /* MediaPlayer.framework in Frameworks */,
 				D354137E2207656C007B20F2 /* TritonPlayerSDK.a in Frameworks */,
