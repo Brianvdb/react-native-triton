@@ -278,7 +278,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Music player notification";
             String description = "Music player notifications for this app.";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel mChannel = new NotificationChannel(DEFAULT_CHANNEL, name, importance);
             mChannel.setDescription(description);
             mChannel.enableLights(true);
@@ -293,7 +293,6 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 .setCustomContentView(mRemoteViews)
                 .setOngoing(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setSmallIcon(R.drawable.ic_player_notification); //small icon
         startForeground(NOTIFICATION_SERVICE, mBuilder.build());
 
