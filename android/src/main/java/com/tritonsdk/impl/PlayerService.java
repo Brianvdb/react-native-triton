@@ -293,6 +293,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         mBuilder
                 .setCustomContentView(mRemoteViews)
                 .setOngoing(true)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setSmallIcon(R.drawable.ic_player_notification); //small icon
         startForeground(NOTIFICATION_SERVICE, mBuilder.build());
 
