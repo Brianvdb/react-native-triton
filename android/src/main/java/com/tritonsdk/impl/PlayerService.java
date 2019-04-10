@@ -186,7 +186,13 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
     public void unPause() {
         if (isPlaying()) return;
-        mPlayer.play();
+        AudioManager audioManager = getAudioManager();
+        if (audioManager != null) {
+            int result = audioManager.requestAudioFocus(PlayerService.this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+            if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                mPlayer.play();
+            }
+        }
         showNotification();
     }
 
