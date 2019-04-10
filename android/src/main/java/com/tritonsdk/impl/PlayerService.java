@@ -81,9 +81,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                     break;
                 case ACTION_QUIT:
                     //releasePlayer();
-                    stop();
-                    mBuilder = null;
-                    stopForeground(true);
+                    quit();
                     //stopSelf();
                     break;
                 case ACTION_STOP:
@@ -175,6 +173,12 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         if (isPlaying()) return;
         mPlayer.play();
         showNotification();
+    }
+
+    public void quit() {
+        stop();
+        mBuilder = null;
+        stopForeground(true);
     }
 
     public Stream getCurrentStream() {

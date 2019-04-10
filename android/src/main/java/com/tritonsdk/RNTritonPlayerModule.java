@@ -88,6 +88,13 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void quit() {
+        if (mService != null) {
+            mService.quit();
+        }
+    }
+
     private void sendEvent(String eventName,
                            @Nullable WritableMap params) {
         reactContext

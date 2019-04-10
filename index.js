@@ -21,6 +21,10 @@ class RNTritonPlayer {
         NativeRNTritonPlayer.stop();
     }
 
+    static quit() {
+        NativeRNTritonPlayer.quit();
+    }
+
     static addStreamChangeListener(callback) {
         if (Platform.OS === 'ios') {
             const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);

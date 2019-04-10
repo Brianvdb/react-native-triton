@@ -82,6 +82,11 @@ RCT_EXPORT_METHOD(unPause)
     }
 }
 
+RCT_EXPORT_METHOD(quit)
+{
+    
+}
+
 
 - (void)player:(TritonPlayer *)player didChangeState:(TDPlayerState)state {
     NSInteger eventState;
