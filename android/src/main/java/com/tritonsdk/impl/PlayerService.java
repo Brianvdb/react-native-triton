@@ -144,6 +144,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
     public void stop() {
         if (!isPlaying() || mPlayer == null) return;
+        mCurrentTrack = null;
         mPlayer.stop();
     }
 
@@ -292,7 +293,6 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         mBuilder
                 .setCustomContentView(mRemoteViews)
                 .setOngoing(true)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setSmallIcon(R.drawable.ic_player_notification); //small icon
         startForeground(NOTIFICATION_SERVICE, mBuilder.build());
 
@@ -342,6 +342,11 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             } else {
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, playPendingIntent);
                 mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_play);
+
+                if (mCurrentTrack == null) {
+                    mRemoteViews.setTextViewText(R.id.song_title, "-");
+                    mRemoteViews.setTextViewText(R.id.station_artist, "-");
+                }
             }
             mRemoteViews.setImageViewResource(R.id.station_exit_image, R.drawable.ic_close_white);
             mRemoteViews.setOnClickPendingIntent(R.id.station_exit, pendingQuitIntent);
