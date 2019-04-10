@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.tritondigital.player.MediaPlayer;
@@ -132,6 +133,10 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
     private boolean isPlaying() {
         return mPlayer != null && mPlayer.getState() == TritonPlayer.STATE_PLAYING;
+    }
+
+    private boolean isConnecting() {
+        return mPlayer != null && mPlayer.getState() == TritonPlayer.STATE_CONNECTING;
     }
 
     public void play() {
@@ -337,18 +342,28 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             }
 
             // use right actions depending on playstate
-            if (isPlaying()) {
+            if (isConnecting()) {
+                mRemoteViews.setViewVisibility(R.id.station_progress_bar, View.VISIBLE);
+                mRemoteViews.setViewVisibility(R.id.station_play_pause_button, View.GONE);
+            } else if (isPlaying()) {
+                mRemoteViews.setViewVisibility(R.id.station_progress_bar, View.GONE);
+                mRemoteViews.setViewVisibility(R.id.station_play_pause_button, View.VISIBLE);
+
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, pausePendingIntent);
                 mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_pause);
             } else {
+                mRemoteViews.setViewVisibility(R.id.station_progress_bar, View.GONE);
+                mRemoteViews.setViewVisibility(R.id.station_play_pause_button, View.VISIBLE);
+
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, playPendingIntent);
                 mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_play);
-
-                if (mCurrentTrack == null) {
-                    mRemoteViews.setTextViewText(R.id.song_title, "-");
-                    mRemoteViews.setTextViewText(R.id.station_artist, "-");
-                }
             }
+
+            if (!isPlaying() && mCurrentTrack == null) {
+                mRemoteViews.setTextViewText(R.id.song_title, "-");
+                mRemoteViews.setTextViewText(R.id.station_artist, "-");
+            }
+
             mRemoteViews.setImageViewResource(R.id.station_exit_image, R.drawable.ic_close_white);
             mRemoteViews.setOnClickPendingIntent(R.id.station_exit, pendingQuitIntent);
 
