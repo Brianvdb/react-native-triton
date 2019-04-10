@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,10 +25,11 @@ import com.tritondigital.player.MediaPlayer;
 import com.tritondigital.player.TritonPlayer;
 import com.tritonsdk.R;
 
+import java.util.Arrays;
 import java.util.List;
 
 
-public class PlayerService extends Service implements TritonPlayer.OnCuePointReceivedListener, TritonPlayer.OnStateChangedListener, TritonPlayer.OnMetaDataReceivedListener {
+public class PlayerService extends Service implements TritonPlayer.OnCuePointReceivedListener, TritonPlayer.OnStateChangedListener, TritonPlayer.OnMetaDataReceivedListener, AudioManager.OnAudioFocusChangeListener {
 
     // Constants
     public static final String ARG_STREAM = "stream";
@@ -125,7 +127,14 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             @Override
             public void run() {
                 Looper.prepare();
-                mPlayer.play();
+
+                AudioManager audioManager = getAudioManager();
+                if (audioManager != null) {
+                    int result = audioManager.requestAudioFocus(PlayerService.this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+                    if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                        mPlayer.play();
+                    }
+                }
                 Looper.loop();
             }
         }).start();
@@ -260,6 +269,13 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
     @Override
     public void onStateChanged(MediaPlayer mediaPlayer, int state) {
+        final Integer[] states = {TritonPlayer.STATE_COMPLETED, TritonPlayer.STATE_STOPPED, TritonPlayer.STATE_ERROR, TritonPlayer.STATE_PAUSED};
+        if (Arrays.asList(states).contains(state)) {
+            AudioManager audioManager = getAudioManager();
+            if (audioManager != null) {
+                audioManager.abandonAudioFocus(this);
+            }
+        }
         updateNotification();
         notifyStateUpdate(state);
     }
@@ -267,6 +283,21 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     @Override
     public void onMetaDataReceived(MediaPlayer mediaPlayer, Bundle bundle) {
         if (bundle == null) return;
+    }
+
+    @Override
+    public void onAudioFocusChange(int focusChange) {
+        switch (focusChange) {
+            case AudioManager.AUDIOFOCUS_LOSS:
+                pause();
+                break;
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                pause();
+                break;
+            case AudioManager.AUDIOFOCUS_GAIN:
+                unPause();
+                break;
+        }
     }
 
     public class LocalBinder extends Binder {
@@ -373,6 +404,10 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
     public boolean isShowingNotification() {
         return mBuilder != null;
+    }
+
+    private AudioManager getAudioManager() {
+        return (AudioManager) getSystemService(Context.AUDIO_SERVICE);
     }
 
     private class MusicIntentReceiver extends BroadcastReceiver {
