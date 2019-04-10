@@ -50,6 +50,17 @@
         </LinearLayout>
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/station_progress_bar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:indeterminateTint="#E50069"
+        android:indeterminateTintMode="src_in"
+        android:indeterminate="true" />
+
     <RelativeLayout
         android:id="@+id/station_play_pause_button"
         android:layout_width="40dp"
