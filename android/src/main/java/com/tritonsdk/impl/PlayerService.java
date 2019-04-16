@@ -229,10 +229,11 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 if (cuePoint.containsKey("cue_title") && cuePoint.containsKey("track_artist_name")) {
                     String artist = cuePoint.getString("track_artist_name");
                     String song = cuePoint.getString("cue_title");
+                    int duration = cuePoint.getInt("cue_time_duration", 0);
 
-                    Log.e("PlayerService", cuePoint.toString());
+                    Log.e("PlayerService", "duration " + duration);
 
-                    mCurrentTrack = new Track(song, artist);
+                    mCurrentTrack = new Track(song, artist, duration);
 
                     mRemoteViews.setTextViewText(R.id.song_title, mCurrentTrack.getTitle());
                     mRemoteViews.setTextViewText(R.id.station_artist, mCurrentTrack.getArtist());

@@ -5,15 +5,17 @@ import java.io.Serializable;
 public class Track implements Serializable {
     private String title;
     private String artist;
+    private int duration;
     private boolean ads;
 
     public Track() {
 
     }
 
-    public Track(String title, String artist) {
+    public Track(String title, String artist, int duration) {
         this.title = title;
         this.artist = artist;
+        this.duration = duration;
     }
 
     public Track(boolean ads) {
@@ -42,5 +44,13 @@ public class Track implements Serializable {
 
     public void setAds(boolean ads) {
         this.ads = ads;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
