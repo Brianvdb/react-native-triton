@@ -18,6 +18,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -228,6 +229,9 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 if (cuePoint.containsKey("cue_title") && cuePoint.containsKey("track_artist_name")) {
                     String artist = cuePoint.getString("track_artist_name");
                     String song = cuePoint.getString("cue_title");
+
+                    Log.e("PlayerService", cuePoint.toString());
+
                     mCurrentTrack = new Track(song, artist);
 
                     mRemoteViews.setTextViewText(R.id.song_title, mCurrentTrack.getTitle());
