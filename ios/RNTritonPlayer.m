@@ -132,8 +132,15 @@ RCT_EXPORT_METHOD(quit)
         
         NSString *songTitle = [cuePointEvent.data objectForKey:CommonCueTitleKey];
         NSString *artistName = [cuePointEvent.data objectForKey:TrackArtistNameKey];
+        NSString *durationTime = [cuePointEvent.data objectForKey:CommonCueTimeDurationKey];
         
-        [self sendEventWithName:EventTrackChanged body:@{@"artist": artistName, @"title": songTitle, @"isAd": @FALSE}];
+        NSInteger duration = 0;
+        
+        if (durationTime != NULL) {
+            duration = [durationTime integerValue];
+        }
+        
+        [self sendEventWithName:EventTrackChanged body:@{@"artist": artistName, @"title": songTitle, @"duration": @(duration), @"isAd": @FALSE}];
         
         self.track = artistName;
         self.title = songTitle;
