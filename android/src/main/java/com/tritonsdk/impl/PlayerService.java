@@ -231,8 +231,6 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                     String song = cuePoint.getString("cue_title");
                     int duration = cuePoint.getInt("cue_time_duration", 0);
 
-                    Log.e("PlayerService", "duration " + duration);
-
                     mCurrentTrack = new Track(song, artist, duration);
 
                     mRemoteViews.setTextViewText(R.id.song_title, mCurrentTrack.getTitle());
