@@ -18,7 +18,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -116,10 +115,15 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     private void playMedia() {
         if (mCurrentStream == null) return;
 
+        String[] tTags = {"PLAYER:NOPREROLL"};
+
         Bundle settings = new Bundle();
         settings.putString(TritonPlayer.SETTINGS_STATION_BROADCASTER, "Triton Digital");
         settings.putString(TritonPlayer.SETTINGS_STATION_NAME, mCurrentStream.getTritonName());
         settings.putString(TritonPlayer.SETTINGS_STATION_MOUNT, mCurrentStream.getTritonMount());
+        settings.putString(TritonPlayer.SETTINGS_PLAYER_SERVICES_REGION, "EU");
+        settings.putBoolean(TritonPlayer.SETTINGS_TARGETING_LOCATION_TRACKING_ENABLED, true);
+        settings.putStringArray(TritonPlayer.SETTINGS_TTAGS, tTags);
         mPlayer = new TritonPlayer(this, settings);
         mPlayer.setOnStateChangedListener(this);
         mPlayer.setOnCuePointReceivedListener(this);

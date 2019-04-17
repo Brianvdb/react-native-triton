@@ -40,7 +40,10 @@ RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonSt
     NSDictionary *settings = @{
                                SettingsStationNameKey : tritonName,
                                SettingsBroadcasterKey : @"Triton Digital",
-                               SettingsMountKey : tritonStation
+                               SettingsMountKey : tritonStation,
+                               SettingsPlayerServicesRegion: @"EU",
+                               SettingsEnableLocationTrackingKey : @(YES),
+                               SettingsTtagKey : @[@"PLAYER:NOPREROLL"]
                                };
     
     // Stop Current Stream (if playing)
