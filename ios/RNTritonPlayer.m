@@ -124,7 +124,6 @@ RCT_EXPORT_METHOD(quit)
 }
 
 - (void)player:(TritonPlayer *)player didReceiveCuePointEvent:(CuePointEvent *)cuePointEvent {
-    [self configureNowPlayingInfo];
     if ([cuePointEvent.type isEqualToString:EventTypeAd]) {
         // Type CUE ad
         [self sendEventWithName:EventTrackChanged body:@{@"artist": @"-", @"title": @"-", @"isAd": @TRUE}];
@@ -148,6 +147,7 @@ RCT_EXPORT_METHOD(quit)
         self.track = artistName;
         self.title = songTitle;
     }
+    [self configureNowPlayingInfo];
 }
 
 - (void)playerBeginInterruption:(TritonPlayer *) player {
