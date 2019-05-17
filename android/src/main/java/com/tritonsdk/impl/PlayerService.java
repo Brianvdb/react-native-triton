@@ -341,6 +341,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         mBuilder = new NotificationCompat.Builder(this, DEFAULT_CHANNEL);
 
         mBuilder
+                .setVibrate(new long[]{0L})
                 .setCustomContentView(mRemoteViews)
                 .setOngoing(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
