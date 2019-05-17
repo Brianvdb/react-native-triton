@@ -332,6 +332,8 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             NotificationChannel mChannel = new NotificationChannel(DEFAULT_CHANNEL, name, importance);
             mChannel.setDescription(description);
             mChannel.enableLights(true);
+            mChannel.enableVibration(true);
+            mChannel.setVibrationPattern(new long[]{0L});
             mChannel.setLightColor(Color.RED);
             mNotificationManager.createNotificationChannel(mChannel);
 
