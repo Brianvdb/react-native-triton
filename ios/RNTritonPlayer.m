@@ -186,6 +186,9 @@ RCT_EXPORT_METHOD(quit)
 
 - (void)configureNowPlayingInfo
 {
+    if (self.title == NULL || self.track == NULL) {
+        return;
+    }
     
     MPNowPlayingInfoCenter* info = [MPNowPlayingInfoCenter defaultCenter];
     NSMutableDictionary* newInfo = [NSMutableDictionary dictionary];
@@ -196,14 +199,13 @@ RCT_EXPORT_METHOD(quit)
     
     [newInfo setValue:[NSNumber numberWithDouble:1] forKey:MPNowPlayingInfoPropertyPlaybackRate];
     
-    
     if (self.state == STATE_PAUSED) {
         info.playbackState = MPMusicPlaybackStatePaused;
         [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
     } else if (self.state == STATE_PLAYING) {
         info.playbackState = MPMusicPlaybackStatePlaying;
         [newInfo setValue:[NSNumber numberWithDouble:1] forKey:MPNowPlayingInfoPropertyPlaybackRate];
-    } else if (self.state == STATE_STOPPED) {
+    } else {
         info.playbackState = MPMusicPlaybackStateStopped;
         [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
     }
@@ -212,4 +214,3 @@ RCT_EXPORT_METHOD(quit)
 }
 
 @end
-
