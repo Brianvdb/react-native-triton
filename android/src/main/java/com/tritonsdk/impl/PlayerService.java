@@ -333,6 +333,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             mChannel.setDescription(description);
             mChannel.enableLights(true);
             mChannel.enableVibration(true);
+            mChannel.setSound(null, null);
             mChannel.setVibrationPattern(new long[]{0L});
             mChannel.setLightColor(Color.RED);
             mNotificationManager.createNotificationChannel(mChannel);
@@ -344,6 +345,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
         mBuilder
                 .setVibrate(new long[]{0L})
+                .setSound(null)
                 .setCustomContentView(mRemoteViews)
                 .setOngoing(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
