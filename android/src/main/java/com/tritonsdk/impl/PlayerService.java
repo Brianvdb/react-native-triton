@@ -406,14 +406,26 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 mRemoteViews.setViewVisibility(R.id.station_progress_bar, View.GONE);
                 mRemoteViews.setViewVisibility(R.id.station_play_pause_button, View.VISIBLE);
 
+                int pauseDrawable;
+                if(PlayerService.BRAND.equals("slam")) {
+                    pauseDrawable = R.drawable.icon_state_pause_slam;
+                } else {
+                    pauseDrawable = R.drawable.icon_state_pause_nl100;
+                }
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, pausePendingIntent);
-                mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_pause_slam);
+                mRemoteViews.setImageViewResource(R.id.station_audio_image, pauseDrawable);
             } else {
                 mRemoteViews.setViewVisibility(R.id.station_progress_bar, View.GONE);
                 mRemoteViews.setViewVisibility(R.id.station_play_pause_button, View.VISIBLE);
 
+                int playDrawable;
+                if(PlayerService.BRAND.equals("slam")) {
+                    playDrawable = R.drawable.icon_state_play_slam;
+                } else {
+                    playDrawable = R.drawable.icon_state_play_nl100;
+                }
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, playPendingIntent);
-                mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_play_slam);
+                mRemoteViews.setImageViewResource(R.id.station_audio_image, playDrawable);
             }
 
             if (!isPlaying() && mCurrentTrack == null) {
@@ -421,7 +433,14 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 mRemoteViews.setTextViewText(R.id.station_artist, "-");
             }
 
-            mRemoteViews.setImageViewResource(R.id.station_exit_image, R.drawable.ic_close_white_slam);
+            int clearDrawable;
+            if(PlayerService.BRAND.equals("slam")) {
+                clearDrawable = R.drawable.ic_close_white_slam;
+            } else {
+                clearDrawable = R.drawable.ic_close_nl100;
+            }
+
+            mRemoteViews.setImageViewResource(R.id.station_exit_image, clearDrawable);
             mRemoteViews.setOnClickPendingIntent(R.id.station_exit, pendingQuitIntent);
 
             mNotificationManager.notify(NOTIFICATION_SERVICE, mBuilder.build());
