@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.media.AudioManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
@@ -51,6 +50,11 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
             reactContext.bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
             reactContext.startService(intent);
         }
+    }
+
+    @ReactMethod
+    public void configure(String brand) {
+        PlayerService.BRAND = brand;
     }
 
     @ReactMethod

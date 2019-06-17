@@ -26,6 +26,11 @@ RCT_EXPORT_MODULE()
     return @[EventTrackChanged, EventStreamChanged, EventStateChanged];
 }
 
+RCT_EXPORT_METHOD(configure:(NSString *)brand)
+{
+    // Does nothing
+}
+
 RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonStation)
 {
     // Init Triton Player if its not set yet

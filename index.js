@@ -5,6 +5,10 @@ const NativeRNTritonPlayer = NativeModules.RNTritonPlayer;
 
 class RNTritonPlayer {
 
+    static configure({brand}) {
+        NativeRNTritonPlayer.configure(brand)
+    }
+
     static play(tritonName, tritonMount) {
         NativeRNTritonPlayer.play(tritonName, tritonMount);
     }

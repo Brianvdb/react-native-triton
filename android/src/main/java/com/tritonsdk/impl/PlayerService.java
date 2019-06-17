@@ -46,6 +46,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     public static final String EVENT_STREAM_CHANGED = "PlayerService.EVENT_STREAM_CHANGED";
     public static final String EVENT_STATE_CHANGED = "PlayerService.EVENT_STATE_CHANGED";
     public static final int NOTIFICATION_SERVICE = 8;
+    public static String BRAND = "slam";
 
     // Binder
     private final IBinder iBinder = new LocalBinder();
@@ -340,7 +341,13 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
         }
 
-        mRemoteViews = new RemoteViews(getPackageName(), R.layout.slam_player_small);
+        int layout;
+        if(PlayerService.BRAND.equals("slam")) {
+            layout = R.layout.slam_player_small;
+        } else {
+            layout = R.layout.nl100_player_small;
+        }
+        mRemoteViews = new RemoteViews(getPackageName(), layout);
         mBuilder = new NotificationCompat.Builder(this, DEFAULT_CHANNEL);
 
         mBuilder
@@ -400,13 +407,13 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 mRemoteViews.setViewVisibility(R.id.station_play_pause_button, View.VISIBLE);
 
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, pausePendingIntent);
-                mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_pause);
+                mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_pause_slam);
             } else {
                 mRemoteViews.setViewVisibility(R.id.station_progress_bar, View.GONE);
                 mRemoteViews.setViewVisibility(R.id.station_play_pause_button, View.VISIBLE);
 
                 mRemoteViews.setOnClickPendingIntent(R.id.station_play_pause_button, playPendingIntent);
-                mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_play);
+                mRemoteViews.setImageViewResource(R.id.station_audio_image, R.drawable.icon_state_play_slam);
             }
 
             if (!isPlaying() && mCurrentTrack == null) {
@@ -414,7 +421,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 mRemoteViews.setTextViewText(R.id.station_artist, "-");
             }
 
-            mRemoteViews.setImageViewResource(R.id.station_exit_image, R.drawable.ic_close_white);
+            mRemoteViews.setImageViewResource(R.id.station_exit_image, R.drawable.ic_close_white_slam);
             mRemoteViews.setOnClickPendingIntent(R.id.station_exit, pendingQuitIntent);
 
             mNotificationManager.notify(NOTIFICATION_SERVICE, mBuilder.build());
