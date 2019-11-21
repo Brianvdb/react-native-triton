@@ -25,6 +25,8 @@ extern NSString *const SettingsStreamParamsExtraKey; /// A NSDictionary containi
 extern NSString *const SettingsTtagKey;  // An Array containing custom TTags
 extern NSString *const SettingsLowDelayKey;  //-1 (AUTO), 0 (DISABLED), 2 … 60 for seconds 
 extern NSString *const SettingsPlayerServicesRegion;  // To use a specific PlayerServices depending on the region, e.g: EU,AP
+extern NSString *const SettingsBitrateKey; //Set the bitrate for low delay
+extern NSString *const SettingsDistributionParameterKey; //Set the distributor targeting value
 /// Extra parameters for location targeting
 
 extern NSString *const StreamParamExtraLatitudeKey; // Floating-point value: -90.0 to 90.0
