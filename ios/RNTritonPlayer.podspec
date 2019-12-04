@@ -12,7 +12,8 @@ Pod::Spec.new do |s|
   s.author             = { "author" => "author@domain.cn" }
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/author/RNTritonPlayer.git", :branch => "master" }
-  s.source_files  = "RNTritonPlayer/**/*.{h,m}"
+  s.source_files   = 'ios/**/*.{h,m}'
+  s.exclude_files  = 'android/**/*'
   s.requires_arc = true
 
 
