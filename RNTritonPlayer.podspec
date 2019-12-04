@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.subspec 'TritonPlayerSDK' do |tp|
     tp.preserve_paths = 'ios/TritonPlayerSDK/*.h'
     tp.vendored_libraries = 'ios/TritonPlayerSDK/*.a'
-    #tp.libraries = 'tritonSDK'
+    tp.libraries = 'TritonPlayerSDK'
     tp.xcconfig = { 'HEADER_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/ios/TritonPlayerSDK/*.h" }
   end
 end
