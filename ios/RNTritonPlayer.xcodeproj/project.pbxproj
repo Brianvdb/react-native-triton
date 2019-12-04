@@ -152,7 +152,6 @@
 		D354121F22065F73007B20F2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D354122122065F7E007B20F2 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D354122322065F86007B20F2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		D354122522066155007B20F2 /* TritonPlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TritonPlayerSDK.framework; path = "../../../Downloads/triton-ios-sdk-2.5.1.138/TritonPlayerSDK.framework"; sourceTree = "<group>"; };
 		D35412292206638B007B20F2 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		D354136D22076559007B20F2 /* TDAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAnalyticsTracker.h; sourceTree = "<group>"; };
 		D354136E22076559007B20F2 /* TDAdLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAdLoader.h; sourceTree = "<group>"; };
@@ -213,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				D35412292206638B007B20F2 /* React.xcodeproj */,
-				D354122522066155007B20F2 /* TritonPlayerSDK.framework */,
 				D354122322065F86007B20F2 /* CoreMedia.framework */,
 				D354122122065F7E007B20F2 /* MediaPlayer.framework */,
 				D354121F22065F73007B20F2 /* AVFoundation.framework */,
