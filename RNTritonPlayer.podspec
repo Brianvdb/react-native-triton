@@ -8,18 +8,20 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://github.com/Brianvdb/react-native-triton"
   s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "author" => "author@domain.cn" }
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/author/RNTritonPlayer.git", :branch => "master" }
-  s.source_files   = 'ios/**/*.{h,m}'
+  s.source       = { :git => "https://github.com/Brianvdb/react-native-triton.git", :branch => "master" }
+  s.source_files   = 'ios/*.{h,m}'
   s.exclude_files  = 'android/**/*'
   s.requires_arc = true
 
-
   s.dependency "React"
-  #s.dependency "others"
 
+  s.subspec 'TritonPlayerSDK' do |tp|
+    tp.preserve_paths = 'ios/TritonPlayerSDK/*.h'
+    tp.vendored_libraries = 'ios/TritonPlayerSDK/*.a'
+    tp.libraries = 'tritonSDK'
+    tp.xcconfig = { 'HEADER_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/ios/TritonPlayerSDK/*.h" }
+  end
 end
-
   
