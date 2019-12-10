@@ -16,7 +16,7 @@
 #import "React/RCTEventEmitter.h" // Required when used as a Pod in a Swift project
 #endif
 
-#import "TritonPlayerSDK/TritonPlayerSDK.h"
+#import <TritonPlayerSDK/TritonPlayerSDK.h>
 
 extern NSString* const EventTrackChanged;
 extern NSString* const EventStreamChanged;

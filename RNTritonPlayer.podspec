@@ -16,5 +16,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
+  s.vendored_frameworks = "ios/TritonPlayerSDK.framework"
 end
   
