@@ -43,7 +43,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation(name: 'triton-android-sdk-2.6.0.109', ext:'aar')
+    implementation fileTree(include: ['*.aar'], dir: 'libs')
 
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
