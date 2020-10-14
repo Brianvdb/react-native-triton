@@ -46,7 +46,7 @@ RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonSt
                                SettingsStationNameKey : tritonName,
                                SettingsBroadcasterKey : @"Triton Digital",
                                SettingsMountKey : tritonStation,
-                               SettingsPlayerServicesRegion: @"EU",
+                               SettingsPlayerServicesRegion: @"AP",
                                SettingsEnableLocationTrackingKey : @(NO),
                                SettingsTtagKey : @[@"PLAYER:NOPREROLL"]
                                };

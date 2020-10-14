@@ -122,7 +122,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         settings.putString(TritonPlayer.SETTINGS_STATION_BROADCASTER, "Triton Digital");
         settings.putString(TritonPlayer.SETTINGS_STATION_NAME, mCurrentStream.getTritonName());
         settings.putString(TritonPlayer.SETTINGS_STATION_MOUNT, mCurrentStream.getTritonMount());
-        settings.putString(TritonPlayer.SETTINGS_PLAYER_SERVICES_REGION, "EU");
+        settings.putString(TritonPlayer.SETTINGS_PLAYER_SERVICES_REGION, "AP");
         settings.putBoolean(TritonPlayer.SETTINGS_TARGETING_LOCATION_TRACKING_ENABLED, true);
         settings.putStringArray(TritonPlayer.SETTINGS_TTAGS, tTags);
         mPlayer = new TritonPlayer(this, settings);
