@@ -13,10 +13,10 @@
   "license": "",
   "peerDependencies": {
     "react": "16.6.3",
-    "react-native": "^0.57.8"
+    "react-native": "^0.70.2"
   },
   "devDependencies": {
     "react": "16.6.3",
-    "react-native": "^0.57.8"
+    "react-native": "^0.70.2"
   }
 }
